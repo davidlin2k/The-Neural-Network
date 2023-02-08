@@ -8,42 +8,61 @@
 import Combine
 import Foundation
 
-protocol NewsWebRepository {
-    func loadNews(completion: @escaping (Result<String, Error>) -> Void)
+struct Response: Decodable {
+    let id: String
+    let object: String
+    let created: Int
+    let model: String
+    let choices: [Choice]
+    let usage: Usage
+    
+    struct Choice: Decodable {
+        let text: String
+        let index: Int
+        let finish_reason: String
+    }
+    
+    struct Usage: Decodable {
+        let prompt_tokens: Int
+        let completion_tokens: Int
+        let total_tokens: Int
+    }
 }
 
-struct RealNewsWebRepository: NewsWebRepository {
-    func loadNews(completion: @escaping (Result<String, Error>) -> Void) {
+protocol NLPRepository {
+    func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void)
+}
+
+struct RealGPTWebRepository: NLPRepository {
+    func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
         var apiKey = ""
         
         if let path = Bundle.main.path(forResource: "Property List", ofType: "plist"),
            let dict = NSDictionary(contentsOfFile: path) as? [String: Any] {
-           apiKey = dict["API_KEY"] as? String ?? ""
+           apiKey = dict["GPT3_API_KEY"] as? String ?? ""
         }
         
         let headers = [
           "accept": "application/json",
-          "Cohere-Version": "2022-12-06",
           "content-type": "application/json",
-          "authorization": "Bearer \(apiKey)"
+          "Authorization": "Bearer \(apiKey)"
         ]
         let parameters = [
-          "model": "xlarge",
-          "truncate": "END",
-          "prompt": "Is Wordle getting tougher to solve? Players seem to be convinced that the game has gotten harder in recent weeks ever since The New York Times bought it from developer Josh Wardle in late January. The Times has come forward and shared that this likely isn't the case. That said, the NYT did mess with the back end code a bit, removing some offensive and sexual language, as well as some obscure words There is a viral thread claiming that a confirmation bias was at play. One Twitter user went so far as to claim the game has gone to \"the dusty section of the dictionary\" to find its latest words.",
-          "max_tokens": 40,
-          "temperature": 0.8,
-          "k": 0,
-          "p": 0.75
+          "model": "text-davinci-003",
+          "prompt": prompt,
+          "max_tokens": 256,
+          "top_p": 1,
+          "frequency_penalty": 0,
+          "presence_penalty": 0
         ] as [String : Any]
         
 
         do {
             let postData = try JSONSerialization.data(withJSONObject: parameters, options: [])
 
-            let request = NSMutableURLRequest(url: NSURL(string: "https://api.cohere.ai/generate")! as URL,
+            let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/completions")! as URL,
                                                     cachePolicy: .useProtocolCachePolicy,
-                                                timeoutInterval: 10.0)
+                                                timeoutInterval: 20.0)
             request.httpMethod = "POST"
             request.allHTTPHeaderFields = headers
             request.httpBody = postData as Data
@@ -59,9 +78,12 @@ struct RealNewsWebRepository: NewsWebRepository {
                       }
                   
                   do {
-                      let json = try JSONSerialization.jsonObject(with: data, options: [])
-                      let result = json as? [String: Any]
-                      let generatedText = result?["prompt"] as? String ?? ""
+                      let decoder = JSONDecoder()
+                      let response = try decoder.decode(Response.self, from: data)
+                      
+
+                      let generatedText = response.choices[0].text
+
                       completion(.success(generatedText))
                   } catch {
                       completion(.failure(error))

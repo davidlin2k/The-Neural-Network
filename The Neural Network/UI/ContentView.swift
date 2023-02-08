@@ -36,11 +36,11 @@ struct ContentView: View {
     
     func searchNews() {
         if (!searchText.isEmpty) {
-            let repo: NewsWebRepository = RealNewsWebRepository()
+            let repo: NLPRepository = RealGPTWebRepository()
             
-            let interactor: NewsInteractor = RealNewsInteractor(newsRepository: repo)
+            let interactor: SummarizeInteractor = RealSummarizeInteractor(repository: repo)
             
-            interactor.loadNews() { result in 
+            interactor.summarize(prompt: searchText) { result in 
                 switch result {
                     
                 case .success(let generatedText):
