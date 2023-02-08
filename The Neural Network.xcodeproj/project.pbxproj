@@ -15,8 +15,9 @@
 		6372CC9129933C42009A884B /* The_Neural_NetworkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CC9029933C42009A884B /* The_Neural_NetworkUITests.swift */; };
 		6372CC9329933C42009A884B /* The_Neural_NetworkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CC9229933C42009A884B /* The_Neural_NetworkUITestsLaunchTests.swift */; };
 		6372CCA329934141009A884B /* SummarizeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCA229934141009A884B /* SummarizeInteractor.swift */; };
-		6372CCA52993422A009A884B /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCA42993422A009A884B /* NewsRepository.swift */; };
+		6372CCA52993422A009A884B /* NLPRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCA42993422A009A884B /* NLPRepository.swift */; };
 		6372CCAB29934F8C009A884B /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6372CCAA29934F8C009A884B /* Property List.plist */; };
+		6372CCAD2993F75A009A884B /* NewsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCAC2993F75A009A884B /* NewsRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +49,9 @@
 		6372CC9029933C42009A884B /* The_Neural_NetworkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Neural_NetworkUITests.swift; sourceTree = "<group>"; };
 		6372CC9229933C42009A884B /* The_Neural_NetworkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = The_Neural_NetworkUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6372CCA229934141009A884B /* SummarizeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummarizeInteractor.swift; sourceTree = "<group>"; };
-		6372CCA42993422A009A884B /* NewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepository.swift; sourceTree = "<group>"; };
+		6372CCA42993422A009A884B /* NLPRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NLPRepository.swift; sourceTree = "<group>"; };
 		6372CCAA29934F8C009A884B /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
+		6372CCAC2993F75A009A884B /* NewsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +151,8 @@
 		6372CCA029934107009A884B /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				6372CCA42993422A009A884B /* NewsRepository.swift */,
+				6372CCA42993422A009A884B /* NLPRepository.swift */,
+				6372CCAC2993F75A009A884B /* NewsRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -307,10 +310,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6372CCA52993422A009A884B /* NewsRepository.swift in Sources */,
+				6372CCA52993422A009A884B /* NLPRepository.swift in Sources */,
 				6372CC7829933C41009A884B /* ContentView.swift in Sources */,
 				6372CC7629933C41009A884B /* The_Neural_NetworkApp.swift in Sources */,
 				6372CCA329934141009A884B /* SummarizeInteractor.swift in Sources */,
+				6372CCAD2993F75A009A884B /* NewsRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
