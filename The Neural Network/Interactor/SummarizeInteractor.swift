@@ -23,14 +23,6 @@ struct RealSummarizeInteractor: SummarizeInteractor {
     }
     
     func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
-        repository.summarize(prompt: "Summarizes the following passage for me in a really short paragraph. \(prompt)") { result in
-            switch result {
-            case .success(let generatedText):
-                completion(.success(generatedText))
-                print(generatedText)
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
+        repository.summarize(prompt: "The each different news I will provide to you are seperated by empty lines, summarize all the following news shortly for me in order. Report it as a reporter, with an introduction and report as a whole in full sentences and smooth flow. \(prompt)", completion: completion)
     }
 }
