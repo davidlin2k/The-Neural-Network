@@ -1,5 +1,6 @@
 # The-Neural-Network
-![logo](https://github.com/davidlin2k/The-Neural-Network/blob/IntegrateNewsAPI/1024.png?raw=true)
+<img src="https://github.com/davidlin2k/The-Neural-Network/blob/IntegrateNewsAPI/1024.png?raw=true" width="100" height="100">
+
 # What is it?
 Stay informed on the latest news from top sources with The Neural Network, the iOS app that provides a personalized report for the headlines using GPT-3. Built with SwiftUI, this app presents the most important information in a concise and easy-to-read format, so you can quickly catch up on the day's events without having to sift through countless articles.
 
