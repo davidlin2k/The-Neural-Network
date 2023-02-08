@@ -18,11 +18,14 @@ struct ContentView: View {
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
+            
             Text(newsText)
+                .padding(.horizontal)
+            
             Spacer()
             HStack {
                 TextField("Discover the latest news stories", text: $searchText)
-                
+            
                 Button(action: searchNews) {
                     Text("Search")
                 }
@@ -36,20 +39,34 @@ struct ContentView: View {
     
     func searchNews() {
         if (!searchText.isEmpty) {
-            let repo: NLPRepository = RealGPTWebRepository()
+            let newsRepo: NewsRepository = NewsAPINewsRepository()
             
-            let interactor: SummarizeInteractor = RealSummarizeInteractor(repository: repo)
+            let newsInteractor: NewsInteractor = RealNewsInteractor(repository: newsRepo)
             
-            interactor.summarize(prompt: searchText) { result in 
+            newsInteractor.loadHeadlines(country: "us") { result in
                 switch result {
                     
                 case .success(let generatedText):
-                    newsText = generatedText
-                    
-                case .failure(let error):
+                    let NLPRepo: NLPRepository = RealGPTWebRepository()
+
+                    let NLPInteractor: SummarizeInteractor = RealSummarizeInteractor(repository: NLPRepo)
+
+                    NLPInteractor.summarize(prompt: generatedText) { result in
+                        switch result {
+
+                        case .success(let generatedText):
+                            newsText = generatedText
+
+                        case .failure(_):
+                            newsText = "Failed"
+                        }
+                    }
+                case .failure(_):
                     newsText = "Failed"
                 }
             }
+            
+            
             searchText = ""
         } else {
             showAlert = true

@@ -50,7 +50,7 @@ struct RealGPTWebRepository: NLPRepository {
         let parameters = [
           "model": "text-davinci-003",
           "prompt": prompt,
-          "max_tokens": 256,
+          "max_tokens": 512,
           "top_p": 1,
           "frequency_penalty": 0,
           "presence_penalty": 0
@@ -62,7 +62,7 @@ struct RealGPTWebRepository: NLPRepository {
 
             let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/completions")! as URL,
                                                     cachePolicy: .useProtocolCachePolicy,
-                                                timeoutInterval: 20.0)
+                                                timeoutInterval: 30.0)
             request.httpMethod = "POST"
             request.allHTTPHeaderFields = headers
             request.httpBody = postData as Data
@@ -81,7 +81,6 @@ struct RealGPTWebRepository: NLPRepository {
                       let decoder = JSONDecoder()
                       let response = try decoder.decode(Response.self, from: data)
                       
-
                       let generatedText = response.choices[0].text
 
                       completion(.success(generatedText))
