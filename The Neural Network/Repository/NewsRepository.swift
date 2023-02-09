@@ -79,7 +79,7 @@ struct NewsAPINewsRepository: NewsRepository {
                     var generatedText = ""
                     
                     for article in response.articles {
-                        generatedText.append(article.description ?? " " + "\n\n")
+                        generatedText.append(article.description ?? " " + "\n")
                     }
                     
                     completion(.success(generatedText))

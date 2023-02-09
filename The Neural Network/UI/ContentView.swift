@@ -19,10 +19,13 @@ struct ContentView: View {
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
             
-            Text(newsText)
-                .padding(.horizontal)
+            ScrollView {
+                Text(newsText)
+                    .padding(.horizontal)
+            }
             
             Spacer()
+            
             HStack {
                 TextField("Discover the latest news stories", text: $searchText)
             
@@ -46,16 +49,16 @@ struct ContentView: View {
             newsInteractor.loadHeadlines(country: "us") { result in
                 switch result {
                     
-                case .success(let generatedText):
+                case .success(let news):
                     let NLPRepo: NLPRepository = RealGPTWebRepository()
 
                     let NLPInteractor: SummarizeInteractor = RealSummarizeInteractor(repository: NLPRepo)
 
-                    NLPInteractor.summarize(prompt: generatedText) { result in
+                    NLPInteractor.summarize(prompt: news) { result in
                         switch result {
 
                         case .success(let generatedText):
-                            newsText = generatedText
+                            newsText = generatedText.trimmingCharacters(in: .whitespacesAndNewlines)
 
                         case .failure(_):
                             newsText = "Failed"
