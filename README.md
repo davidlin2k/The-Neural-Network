@@ -20,4 +20,4 @@ Stay informed on the latest news from top sources with The Neural Network, the i
 
 ## Contributing
 
-We welcome contributions to NewsHeadlineSummarizer (iOS)! If you have an idea for a new feature or bug fix, please open an issue or submit a pull request. Our goal is to make this app as user-friendly and informative as possible, and we'd love your help in achieving this goal.
+We welcome contributions to The Neural Network! If you have an idea for a new feature or bug fix, please open an issue or submit a pull request. Our goal is to make this app as user-friendly and informative as possible, and we'd love your help in achieving this goal.
