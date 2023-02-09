@@ -23,6 +23,6 @@ struct RealSummarizeInteractor: SummarizeInteractor {
     }
     
     func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
-        repository.summarize(prompt: "The each different news I will provide to you are seperated by empty lines, summarize all the following news shortly for me in order. Report it as a reporter, with an introduction and report as a whole in full sentences and smooth flow. \(prompt)", completion: completion)
+        repository.summarize(prompt: "The each different news I will provide to you are seperated by empty lines, summarize all the following news shortly for me in order. Report it as a reporter and report as a whole in full sentences and smooth flow. \(prompt)", completion: completion)
     }
 }
