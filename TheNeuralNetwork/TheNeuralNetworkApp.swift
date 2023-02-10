@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct TheNeuralNetworkApp: App {
+    private var newsService = NewsAPIService()
+    private var gptService = RealGPT3Service()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(NewsModel(newsService: newsService, gptService: gptService))
         }
     }
 }
