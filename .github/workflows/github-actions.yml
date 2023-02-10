@@ -1,6 +1,12 @@
 name: GitHub Actions
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+
+on: 
+  push:
+    paths:
+      - '.github/workflows/swiftlint.yml'
+      - '.swiftlint.yml'
+      - '**/*.swift'
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
