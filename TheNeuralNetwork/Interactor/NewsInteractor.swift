@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol NewsInteractor {
     func loadHeadlines(country: String, completion: @escaping (Result<String, Error>) -> Void)
