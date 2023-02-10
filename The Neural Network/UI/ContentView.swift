@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var searchText = ""
-    @State private var showAlert = false
-    @State private var newsText = "Your customized news will be displayed here"
+    @StateObject private var contentViewModel = ContentViewModel()
     
     var body: some View {
         VStack {
@@ -20,59 +18,69 @@ struct ContentView: View {
             Text("Hello, world!")
             
             ScrollView {
-                Text(newsText)
+                Text(contentViewModel.newsText)
                     .padding(.horizontal)
             }
             
             Spacer()
             
             HStack {
-                TextField("Discover the latest news stories", text: $searchText)
+                TextField("Discover the latest news stories", text: $contentViewModel.searchText)
+                    
             
-                Button(action: searchNews) {
+                Button(action: contentViewModel.searchNews) {
                     Text("Search")
                 }
             }
-            .padding(.horizontal)
+            .padding([.leading, .bottom, .trailing])
         }
-        .alert(isPresented: $showAlert) {
+        .alert(isPresented: $contentViewModel.showAlert) {
             Alert(title: Text("Error"), message: Text("Please enter a message"), dismissButton: .default(Text("OK")))
         }
     }
-    
-    func searchNews() {
-        if (!searchText.isEmpty) {
-            let newsRepo: NewsRepository = NewsAPINewsRepository()
-            
-            let newsInteractor: NewsInteractor = RealNewsInteractor(repository: newsRepo)
-            
-            newsInteractor.loadHeadlines(country: "us") { result in
-                switch result {
-                    
-                case .success(let news):
-                    let NLPRepo: NLPRepository = RealGPTWebRepository()
+}
 
-                    let NLPInteractor: SummarizeInteractor = RealSummarizeInteractor(repository: NLPRepo)
+extension ContentView {
+    @MainActor class ContentViewModel: ObservableObject {
+        private var disposables = Set<AnyCancellable>()
+        
+        @Published var searchText = ""
+        @Published var showAlert = false
+        @Published var newsText = "Your customized news will be displayed here"
+        
+        func searchNews() {
+            if (!searchText.isEmpty) {
+                let newsRepo: NewsRepository = NewsAPINewsRepository()
+                
+                let newsInteractor: NewsInteractor = RealNewsInteractor(repository: newsRepo)
+                
+                newsInteractor.loadHeadlines(country: "us") { result in
+                    switch result {
+                        
+                    case .success(let news):
+                        let NLPRepo: NLPRepository = RealGPTWebRepository()
 
-                    NLPInteractor.summarize(prompt: news) { result in
-                        switch result {
+                        let NLPInteractor: SummarizeInteractor = RealSummarizeInteractor(repository: NLPRepo)
 
-                        case .success(let generatedText):
-                            newsText = generatedText.trimmingCharacters(in: .whitespacesAndNewlines)
+                        NLPInteractor.summarize(prompt: news) { result in
+                            switch result {
 
-                        case .failure(_):
-                            newsText = "Failed"
+                            case .success(let generatedText):
+                                self.newsText = generatedText.trimmingCharacters(in: .whitespacesAndNewlines)
+
+                            case .failure(_):
+                                self.newsText = "Failed"
+                            }
                         }
+                    case .failure(_):
+                        self.newsText = "Failed"
                     }
-                case .failure(_):
-                    newsText = "Failed"
                 }
+                
+                self.searchText = ""
+            } else {
+                showAlert = true
             }
-            
-            
-            searchText = ""
-        } else {
-            showAlert = true
         }
     }
 }
