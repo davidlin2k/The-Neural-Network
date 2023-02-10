@@ -14,7 +14,7 @@ struct TheNeuralNetworkApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environmentObject(NewsModel(newsService: newsService, gptService: gptService))
         }
     }
