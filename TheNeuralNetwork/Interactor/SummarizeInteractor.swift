@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol SummarizeInteractor {
     func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void)
