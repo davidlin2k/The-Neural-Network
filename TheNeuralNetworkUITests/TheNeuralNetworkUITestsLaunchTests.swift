@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class The_Neural_NetworkUITestsLaunchTests: XCTestCase {
+final class TheNeuralNetworkUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

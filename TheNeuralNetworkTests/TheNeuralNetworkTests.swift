@@ -8,7 +8,7 @@
 import XCTest
 @testable import The_Neural_Network
 
-final class The_Neural_NetworkTests: XCTestCase {
+final class TheNeuralNetworkTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
