@@ -15,7 +15,8 @@ struct ContentView: View {
     @EnvironmentObject private var newsModel: NewsModel
     
     private func loadHeadlines() {
-        newsModel.loadHeadlines(country: "us")
+        self.searchText = ""
+        self.newsModel.loadHeadlines(country: "us")
     }
     
     var body: some View {
@@ -28,6 +29,10 @@ struct ContentView: View {
             ScrollView {
                 Text(newsModel.summarizedNews)
                     .padding(.horizontal)
+            }.overlay {
+                if newsModel.loadingSummarizedNews {
+                    ProgressView()
+                }
             }
             
             Spacer()
@@ -35,7 +40,6 @@ struct ContentView: View {
             HStack {
                 TextField("Discover the latest news stories", text: $searchText)
                     
-            
                 Button(action: loadHeadlines) {
                     Text("Search")
                 }

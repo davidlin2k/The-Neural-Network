@@ -19,7 +19,9 @@ struct NewsResponse: Decodable {
     let articles: [Article]
 }
 
-struct Article: Decodable {
+struct Article: Identifiable, Decodable {
+    let id = UUID()
+    
     let source: Source
     let author: String?
     let title: String?
