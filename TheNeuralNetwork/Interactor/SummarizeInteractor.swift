@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 protocol SummarizeInteractor {
     func summarize(prompt: String, completion: @escaping (Result<String, Error>) -> Void)
