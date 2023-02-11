@@ -30,8 +30,6 @@ struct NewsRow: View {
             Text(article.title?.trimmingCharacters(in: .whitespacesAndNewlines) ?? "")
                 .bold()
                 .fixedSize(horizontal: false, vertical: true)
-        }.onTapGesture {
-            UIApplication.shared.open(URL(string: article.url ?? "")!)
         }
     }
 }
