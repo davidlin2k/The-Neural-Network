@@ -51,6 +51,8 @@ class NewsModel: ObservableObject {
     }
     
     func loadHeadlines(country: String) {
+        URLCache.imageCache.removeAllCachedResponses()
+        
         self.loadingSummarizedNews = true
         
         subscription = newsService.fetchHeadlines(country: country)

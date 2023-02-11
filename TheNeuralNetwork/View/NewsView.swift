@@ -30,29 +30,28 @@ struct NewsView: View {
                         NavigationLink("", value: article.url ?? "")
                         
                         NewsRow(article: article)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .listRowSeparator(.hidden)
-                            .listRowBackground(
-                                RoundedRectangle(cornerRadius: 5)
-                                    .background(.clear)
-                                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray6) : .white)
-                                    .padding(
-                                        EdgeInsets(
-                                            top: 3,
-                                            leading: 5,
-                                            bottom: 5,
-                                            trailing: 3
-                                        )
+                    }.fixedSize(horizontal: false, vertical: true)
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(
+                            RoundedRectangle(cornerRadius: 5)
+                                .background(.clear)
+                                .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray6) : .white)
+                                .padding(
+                                    EdgeInsets(
+                                        top: 3,
+                                        leading: 5,
+                                        bottom: 5,
+                                        trailing: 3
                                     )
-                            )
-                            .padding(
-                                EdgeInsets(
-                                top: 5,
-                                leading: 0,
-                                bottom: 5,
-                                trailing: 0
-                            ))
-                    }
+                                )
+                        )
+                        .padding(
+                            EdgeInsets(
+                            top: 5,
+                            leading: 0,
+                            bottom: 5,
+                            trailing: 0
+                        ))
                 }.navigationDestination(for: String.self) { url in
                     NewsDetailView(url: url)
                 }.refreshable {
