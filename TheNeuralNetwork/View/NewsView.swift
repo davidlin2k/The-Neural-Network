@@ -14,6 +14,20 @@ struct NewsView: View {
         List(self.newsModel.articles) { article in
             NewsRow(article: article)
                 .fixedSize(horizontal: false, vertical: true)
+                .listRowSeparator(.hidden)
+                .listRowBackground(
+                    RoundedRectangle(cornerRadius: 5)
+                        .background(.clear)
+                        .foregroundColor(.white)
+                        .padding(
+                            EdgeInsets(
+                                top: 3,
+                                leading: 5,
+                                bottom: 3,
+                                trailing: 5
+                            )
+                        )
+                )
         }
     }
 }
