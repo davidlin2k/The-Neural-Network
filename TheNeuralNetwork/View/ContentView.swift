@@ -37,6 +37,7 @@ struct ContentView: View {
             ScrollView {
                 Text(newsModel.summarizedNews)
                     .padding(.horizontal)
+                    .textSelection(.enabled)
             }.overlay {
                 if newsModel.loadingSummarizedNews {
                     ProgressView()

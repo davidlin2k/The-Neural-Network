@@ -54,6 +54,7 @@ class NewsModel: ObservableObject {
         URLCache.imageCache.removeAllCachedResponses()
         
         self.loadingSummarizedNews = true
+        self.summarizedNews = ""
         
         subscription = newsService.fetchHeadlines(country: country)
             .receive(on: RunLoop.main)
