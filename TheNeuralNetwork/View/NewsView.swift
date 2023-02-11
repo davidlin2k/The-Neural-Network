@@ -25,33 +25,51 @@ struct NewsView: View {
                             }
                 .pickerStyle(.menu)
             
-                List(self.newsModel.articles) { article in
-                    ZStack {
-                        NavigationLink("", value: article.url ?? "")
-                        
-                        NewsRow(article: article)
-                    }.fixedSize(horizontal: false, vertical: true)
-                        .listRowSeparator(.hidden)
-                        .listRowBackground(
-                            RoundedRectangle(cornerRadius: 5)
-                                .background(.clear)
-                                .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray6) : .white)
-                                .padding(
-                                    EdgeInsets(
-                                        top: 3,
-                                        leading: 5,
-                                        bottom: 5,
-                                        trailing: 3
-                                    )
-                                )
+                List {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack(alignment: .top, spacing: 0) {
+                            // Add items here
+                        }
+                    }.listRowBackground(
+                        Rectangle()
+                            .background(.clear)
+                            .foregroundColor(.clear)
+                    ).listRowInsets(                                        EdgeInsets(
+                            top: 3,
+                            leading: 5,
+                            bottom: 3,
+                            trailing: 5
                         )
-                        .padding(
-                            EdgeInsets(
-                            top: 5,
-                            leading: 0,
-                            bottom: 5,
-                            trailing: 0
-                        ))
+                    )
+                    
+                    ForEach(self.newsModel.articles) { article in
+                        ZStack {
+                            NavigationLink("", value: article.url ?? "")
+                            
+                            NewsRow(article: article)
+                        }.fixedSize(horizontal: false, vertical: true)
+                            .listRowSeparator(.hidden)
+                            .listRowBackground(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .background(.clear)
+                                    .foregroundColor(colorScheme == .dark ? Color(UIColor.systemGray6) : .white)
+                                    .padding(
+                                        EdgeInsets(
+                                            top: 3,
+                                            leading: 5,
+                                            bottom: 3,
+                                            trailing: 5
+                                        )
+                                    )
+                            )
+                            .padding(
+                                EdgeInsets(
+                                top: 5,
+                                leading: 0,
+                                bottom: 5,
+                                trailing: 0
+                            ))
+                    }
                 }.navigationDestination(for: String.self) { url in
                     NewsDetailView(url: url)
                 }.refreshable {
