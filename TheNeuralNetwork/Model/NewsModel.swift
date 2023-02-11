@@ -10,15 +10,38 @@ import Combine
 
 @MainActor
 class NewsModel: ObservableObject {
+    // States
     @Published var summarizedNews: String
     @Published var loadingSummarizedNews: Bool
     @Published var articles: [Article]
+    @Published var selection: Country = .us
     
+    // Publisher Subscriber
     private var subscription: AnyCancellable?
     
+    // Services
     let newsService: NewsService
     let gptService: GPTService
     
+    // Misc
+    enum Country: String, Equatable, CaseIterable {
+        case us = "us"
+        case ca = "ca"
+        case cn = "cn"
+        
+        var description: String {
+            switch self {
+            case .us:
+                return "🇺🇸 United States"
+            case .ca:
+                return "🇨🇦 Canada"
+            case .cn:
+                return "🇨🇳 China"
+            }
+        }
+    }
+    
+    // Initializer
     init(newsService: NewsService, gptService: GPTService) {
         self.newsService = newsService
         self.gptService = gptService
@@ -28,6 +51,8 @@ class NewsModel: ObservableObject {
     }
     
     func loadHeadlines(country: String) {
+        URLCache.imageCache.removeAllCachedResponses()
+        
         self.loadingSummarizedNews = true
         
         subscription = newsService.fetchHeadlines(country: country)

@@ -53,7 +53,7 @@ class NewsAPIService: NewsService {
         return Deferred {
             Future<[Article], Error> { promise in
                 // Create URL
-                let url = URL(string: "https://newsapi.org/v2/top-headlines?country=us&apiKey=\(apiKey)&pageSize=10")
+                let url = URL(string: "https://newsapi.org/v2/top-headlines?country=\(country)&apiKey=\(apiKey)&pageSize=10")
                 guard let requestUrl = url else { fatalError() }
                 
                 // Create URL Request

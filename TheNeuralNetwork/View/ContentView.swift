@@ -16,7 +16,7 @@ struct ContentView: View {
     
     private func loadHeadlines() {
         self.searchText = ""
-        self.newsModel.loadHeadlines(country: "us")
+        self.newsModel.loadHeadlines(country: newsModel.selection.rawValue)
     }
     
     var body: some View {
@@ -24,6 +24,14 @@ struct ContentView: View {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
+            
+            Picker("Select Country", selection: $newsModel.selection) {
+                ForEach(NewsModel.Country.allCases, id: \.self) { value in
+                    Text(value.description).tag(value)
+                            }
+                        }
+            .pickerStyle(.menu)
+            
             Text("Hello, world!")
             
             ScrollView {
@@ -55,5 +63,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(NewsModel(newsService: NewsAPIService(), gptService: RealGPT3Service()))
     }
 }

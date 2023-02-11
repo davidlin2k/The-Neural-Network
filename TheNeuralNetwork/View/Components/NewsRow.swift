@@ -12,13 +12,14 @@ struct NewsRow: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            AsyncImage(url: URL(string: article.urlToImage ?? "")) { phase in
+            CachedAsyncImage(url: URL(string: article.urlToImage ?? ""), urlCache: .imageCache) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
                 case .success(let image):
                     image.resizable()
                          .scaledToFill()
+                         .cornerRadius(5)
                 case .failure:
                     Image(systemName: "photo")
                 @unknown default:
