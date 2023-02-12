@@ -45,6 +45,7 @@ struct NewsView: View {
                     ForEach(self.newsModel.articles) { article in
                         ZStack {
                             NavigationLink("", value: article.url ?? "")
+                                .opacity(0.0)
                             
                             NewsRow(article: article)
                         }.fixedSize(horizontal: false, vertical: true)

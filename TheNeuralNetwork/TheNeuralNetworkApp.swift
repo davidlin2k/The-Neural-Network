@@ -12,10 +12,18 @@ struct TheNeuralNetworkApp: App {
     private var newsService = NewsAPIService()
     private var gptService = RealGPT3Service()
     
+    @StateObject var launchScreenState = LaunchScreenStateManager()
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environmentObject(NewsModel(newsService: newsService, gptService: gptService))
+            ZStack {
+                MainView()
+                
+                if launchScreenState.state != .finished {
+                    LaunchScreenView()
+                }
+            }.environmentObject(NewsModel(newsService: newsService, gptService: gptService, loadNews: launchScreenState.state == .finished))
+             .environmentObject(launchScreenState)
         }
     }
 }

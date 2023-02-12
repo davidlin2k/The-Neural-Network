@@ -64,6 +64,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(NewsModel(newsService: NewsAPIService(), gptService: RealGPT3Service()))
+            .environmentObject(NewsModel(newsService: NewsAPIService(), gptService: RealGPT3Service(), loadNews: true))
     }
 }

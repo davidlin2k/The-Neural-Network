@@ -17,6 +17,9 @@
 		63163DF02997F295004957D9 /* NewsDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DEF2997F295004957D9 /* NewsDetailView.swift */; };
 		63163DF229983C33004957D9 /* CachedAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DF129983C33004957D9 /* CachedAsyncImage.swift */; };
 		63163DF429983E25004957D9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DF329983E25004957D9 /* ImageCache.swift */; };
+		63163DF7299855EE004957D9 /* LaunchScreenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DF6299855EE004957D9 /* LaunchScreenStateManager.swift */; };
+		63163DF929985604004957D9 /* LaunchScreenStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DF829985604004957D9 /* LaunchScreenStep.swift */; };
+		63163DFB29985682004957D9 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63163DFA29985682004957D9 /* LaunchScreenView.swift */; };
 		6372CC7629933C41009A884B /* TheNeuralNetworkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CC7529933C41009A884B /* TheNeuralNetworkApp.swift */; };
 		6372CC7829933C41009A884B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CC7729933C41009A884B /* ContentView.swift */; };
 		6372CC7A29933C42009A884B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6372CC7929933C42009A884B /* Assets.xcassets */; };
@@ -57,6 +60,10 @@
 		63163DEF2997F295004957D9 /* NewsDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailView.swift; sourceTree = "<group>"; };
 		63163DF129983C33004957D9 /* CachedAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedAsyncImage.swift; sourceTree = "<group>"; };
 		63163DF329983E25004957D9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		63163DF6299855EE004957D9 /* LaunchScreenStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenStateManager.swift; sourceTree = "<group>"; };
+		63163DF829985604004957D9 /* LaunchScreenStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenStep.swift; sourceTree = "<group>"; };
+		63163DFA29985682004957D9 /* LaunchScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
+		63163DFC299884E1004957D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		6372CC7229933C41009A884B /* TheNeuralNetwork.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheNeuralNetwork.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6372CC7529933C41009A884B /* TheNeuralNetworkApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TheNeuralNetworkApp.swift; sourceTree = "<group>"; };
 		6372CC7729933C41009A884B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -132,6 +139,7 @@
 		6372CC7429933C41009A884B /* TheNeuralNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				63163DFC299884E1004957D9 /* Info.plist */,
 				6372CCA72993446F009A884B /* System */,
 				6372CCA629934321009A884B /* Model */,
 				6372CCA029934107009A884B /* Services */,
@@ -176,6 +184,7 @@
 				63163DE329970279004957D9 /* MainView.swift */,
 				63163DE529970346004957D9 /* NewsView.swift */,
 				63163DEF2997F295004957D9 /* NewsDetailView.swift */,
+				63163DFA29985682004957D9 /* LaunchScreenView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,6 +211,8 @@
 		6372CCA72993446F009A884B /* System */ = {
 			isa = PBXGroup;
 			children = (
+				63163DF6299855EE004957D9 /* LaunchScreenStateManager.swift */,
+				63163DF829985604004957D9 /* LaunchScreenStep.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -339,11 +350,14 @@
 			files = (
 				63163DE22996DAA1004957D9 /* News.swift in Sources */,
 				63163DF229983C33004957D9 /* CachedAsyncImage.swift in Sources */,
+				63163DF7299855EE004957D9 /* LaunchScreenStateManager.swift in Sources */,
 				63163DE629970346004957D9 /* NewsView.swift in Sources */,
+				63163DFB29985682004957D9 /* LaunchScreenView.swift in Sources */,
 				63163DE029968E55004957D9 /* NewsModel.swift in Sources */,
 				6372CCA52993422A009A884B /* GPTService.swift in Sources */,
 				63163DE429970279004957D9 /* MainView.swift in Sources */,
 				6372CC7829933C41009A884B /* ContentView.swift in Sources */,
+				63163DF929985604004957D9 /* LaunchScreenStep.swift in Sources */,
 				6372CC7629933C41009A884B /* TheNeuralNetworkApp.swift in Sources */,
 				63163DE8299704B1004957D9 /* NewsRow.swift in Sources */,
 				6372CCAD2993F75A009A884B /* NewsService.swift in Sources */,
@@ -512,11 +526,11 @@
 				DEVELOPMENT_TEAM = TQ27LL9PXC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TheNeuralNetwork/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Neural Network";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -544,11 +558,11 @@
 				DEVELOPMENT_TEAM = TQ27LL9PXC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TheNeuralNetwork/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "The Neural Network";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.news";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiresFullScreen = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;

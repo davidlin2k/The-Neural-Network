@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
+    @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
+    
     var body: some View {
         TabView {
             ContentView()
@@ -19,6 +21,9 @@ struct MainView: View {
                 .tabItem {
                     Label("News", systemImage: "newspaper")
                 }
+        }.task {
+            try? await Task.sleep(for: Duration.seconds(1))
+            self.launchScreenState.dismiss()
         }
     }
 }
