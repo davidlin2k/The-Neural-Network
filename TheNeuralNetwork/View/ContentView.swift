@@ -37,6 +37,7 @@ struct ContentView: View {
             ScrollView {
                 Text(newsModel.summarizedNews)
                     .padding(.horizontal)
+                    .textSelection(.enabled)
             }.overlay {
                 if newsModel.loadingSummarizedNews {
                     ProgressView()
@@ -63,6 +64,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(NewsModel(newsService: NewsAPIService(), gptService: RealGPT3Service()))
+            .environmentObject(NewsModel(newsService: NewsAPIService(), gptService: RealGPT3Service(), loadNews: true))
     }
 }

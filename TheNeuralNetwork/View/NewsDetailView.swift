@@ -13,6 +13,10 @@ struct NewsDetailView: View {
     var body: some View {
         VStack {
             WebView(request: URLRequest(url: URL(string: url)!))
+        }.toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                ShareLink(item: URL(string: url)!)
+            }
         }
     }
 }

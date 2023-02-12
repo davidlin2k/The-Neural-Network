@@ -42,18 +42,23 @@ class NewsModel: ObservableObject {
     }
     
     // Initializer
-    init(newsService: NewsService, gptService: GPTService) {
+    init(newsService: NewsService, gptService: GPTService, loadNews: Bool) {
         self.newsService = newsService
         self.gptService = gptService
         self.summarizedNews = ""
         self.loadingSummarizedNews = false
         self.articles = []
+        
+        if loadNews {
+            self.loadHeadlines(country: self.selection.rawValue)
+        }
     }
     
     func loadHeadlines(country: String) {
         URLCache.imageCache.removeAllCachedResponses()
         
         self.loadingSummarizedNews = true
+        self.summarizedNews = ""
         
         subscription = newsService.fetchHeadlines(country: country)
             .receive(on: RunLoop.main)
@@ -78,7 +83,7 @@ class NewsModel: ObservableObject {
             return article.description ?? " "
         }).joined(separator: " ")
         
-        let prompt =  "The each different news I will provide to you are seperated by empty lines, summarize all the following news shortly for me in order. Report it as a reporter and report as a whole in full sentences and smooth flow. \(newsDescriptions)"
+        let prompt =  "The each different news I will provide to you are seperated by empty lines, summarize all the following news shortly for me in order and report it as a reporter in full sentences and smooth flow. \(newsDescriptions)"
         
         subscription = gptService.summarize(prompt: prompt)
             .receive(on: RunLoop.main)
