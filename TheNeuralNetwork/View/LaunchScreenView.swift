@@ -9,7 +9,6 @@ import SwiftUI
 
 struct LaunchScreenView: View {
     @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
-    @EnvironmentObject private var newsModel: NewsModel
 
     @State private var firstAnimation = false
     @State private var secondAnimation = false // Mark 2

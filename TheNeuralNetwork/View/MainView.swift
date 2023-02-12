@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MainView: View {
     @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
+    @EnvironmentObject private var newsModel: NewsModel
     
     var body: some View {
         TabView {
