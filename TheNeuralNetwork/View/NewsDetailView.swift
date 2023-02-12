@@ -17,6 +17,6 @@ struct NewsDetailView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 ShareLink(item: URL(string: url)!)
             }
-        }
+        }.toolbar(.hidden, for: .tabBar)
     }
 }
