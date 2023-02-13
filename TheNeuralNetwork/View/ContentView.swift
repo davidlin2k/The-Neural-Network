@@ -17,20 +17,6 @@ struct ContentView: View {
     
     let speechSynthesizer = AVSpeechSynthesizer()
     
-    private func loadHeadlines() {
-        self.searchText = ""
-        self.newsModel.loadHeadlines()
-    }
-    
-    private func readSummarizedNews() {
-        let utterance = AVSpeechUtterance(string: self.newsModel.summarizedNews)
-        utterance.pitchMultiplier = 1.0
-        utterance.rate = 0.5
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
-        
-        speechSynthesizer.speak(utterance)
-    }
-    
     var body: some View {
         VStack {
             Image(systemName: "speaker.wave.2.fill")
@@ -73,6 +59,25 @@ struct ContentView: View {
         .alert(isPresented: $showAlert) {
             Alert(title: Text("Error"), message: Text("Please enter a message"), dismissButton: .default(Text("OK")))
         }
+    }
+    
+    private func loadHeadlines() {
+        if self.searchText.isEmpty {
+            showAlert = true
+        }
+        else {
+            self.newsModel.loadSearchResult(search: searchText)
+            self.searchText = ""
+        }
+    }
+    
+    private func readSummarizedNews() {
+        let utterance = AVSpeechUtterance(string: self.newsModel.summarizedNews)
+        utterance.pitchMultiplier = 1.0
+        utterance.rate = 0.5
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        speechSynthesizer.speak(utterance)
     }
 }
 

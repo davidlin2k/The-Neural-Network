@@ -55,13 +55,39 @@ class NewsModel: ObservableObject {
         }
     }
     
-    func loadHeadlines(category: String? = nil) {
+    func loadHeadlines(category: String? = nil, search: String? = nil) {
         URLCache.imageCache.removeAllCachedResponses()
         
         self.loadingSummarizedNews = true
         self.summarizedNews = ""
         
         subscription = newsService.fetchHeadlines(country: self.selection.rawValue, category: category)
+            .receive(on: RunLoop.main)
+            .sink(receiveCompletion: { completion in
+                self.subscription?.cancel()
+                
+                switch completion {
+                case .finished:
+                    break
+                case .failure(let error):
+                    self.loadingSummarizedNews = false
+                    self.summarizedNews = error.localizedDescription
+                }
+            }, receiveValue: { articles in
+                self.articles = articles
+                self.summarizeNews()
+            })
+    }
+    
+    func loadSearchResult(search: String? = nil) {
+        let searchString = search?.replacing(" ", with: "+")
+        
+        URLCache.imageCache.removeAllCachedResponses()
+        
+        self.loadingSummarizedNews = true
+        self.summarizedNews = ""
+        
+        subscription = newsService.fetchFromAllNews(search: searchString)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 self.subscription?.cancel()
