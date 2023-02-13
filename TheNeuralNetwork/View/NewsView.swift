@@ -11,13 +11,16 @@ struct NewsView: View {
     @EnvironmentObject private var newsModel: NewsModel
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    @State var linkIsActive: Bool = false
+    @State var category: String = ""
     
-    @State private var path: [String] = []
+    func onCategoryChange(category: String) {
+        self.newsModel.loadHeadlines(category: category)
+    }
     
     var body: some View {
         VStack {
             NavigationStack {
+                // Picker for country selection
                 Picker("Select Country", selection: $newsModel.selection) {
                     ForEach(NewsModel.Country.allCases, id: \.self) { value in
                         Text(value.description).tag(value)
@@ -27,14 +30,17 @@ struct NewsView: View {
             
                 List {
                     ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(alignment: .top, spacing: 0) {
-                            // Add items here
+                        HStack(alignment: .top, spacing: 5) {
+                            // Display all the categories in a horizontal stack
+                            NewsCategoryView(imageName: "sports", categoryName: "Sports", categoryValue: "sports", onTap: onCategoryChange)
+                            
                         }
                     }.listRowBackground(
                         Rectangle()
                             .background(.clear)
                             .foregroundColor(.clear)
-                    ).listRowInsets(                                        EdgeInsets(
+                    ).listRowInsets(
+                        EdgeInsets(
                             top: 3,
                             leading: 5,
                             bottom: 3,
@@ -43,6 +49,7 @@ struct NewsView: View {
                     )
                     
                     ForEach(self.newsModel.articles) { article in
+                        // Add articles
                         ZStack {
                             NavigationLink("", value: article.url ?? "")
                                 .opacity(0.0)
@@ -74,7 +81,7 @@ struct NewsView: View {
                 }.navigationDestination(for: String.self) { url in
                     NewsDetailView(url: url)
                 }.refreshable {
-                    newsModel.loadHeadlines(country: newsModel.selection.rawValue)
+                    newsModel.loadHeadlines()
                 }
             }
         }

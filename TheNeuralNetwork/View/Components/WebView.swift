@@ -8,9 +8,6 @@
 import SwiftUI
 import WebKit
 
-import SwiftUI
-import WebKit
-
 struct WebView : UIViewRepresentable {
     
     let request: URLRequest

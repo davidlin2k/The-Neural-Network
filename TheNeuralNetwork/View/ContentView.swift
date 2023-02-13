@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import AVFoundation
 
 struct ContentView: View {
     @State var searchText = ""
@@ -14,16 +15,30 @@ struct ContentView: View {
     
     @EnvironmentObject private var newsModel: NewsModel
     
+    let speechSynthesizer = AVSpeechSynthesizer()
+    
     private func loadHeadlines() {
         self.searchText = ""
-        self.newsModel.loadHeadlines(country: newsModel.selection.rawValue)
+        self.newsModel.loadHeadlines()
+    }
+    
+    private func readSummarizedNews() {
+        let utterance = AVSpeechUtterance(string: self.newsModel.summarizedNews)
+        utterance.pitchMultiplier = 1.0
+        utterance.rate = 0.5
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        
+        speechSynthesizer.speak(utterance)
     }
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
+            Image(systemName: "speaker.wave.2.fill")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
+                .onTapGesture {
+                    readSummarizedNews()
+                }
             
             Picker("Select Country", selection: $newsModel.selection) {
                 ForEach(NewsModel.Country.allCases, id: \.self) { value in
@@ -48,7 +63,7 @@ struct ContentView: View {
             
             HStack {
                 TextField("Discover the latest news stories", text: $searchText)
-                    
+
                 Button(action: loadHeadlines) {
                     Text("Search")
                 }
