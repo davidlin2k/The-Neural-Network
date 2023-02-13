@@ -21,3 +21,10 @@ Stay informed on the latest news from top sources with The Neural Network, the i
 ## Contributing
 
 We welcome contributions to The Neural Network! If you have an idea for a new feature or bug fix, please open an issue or submit a pull request. Our goal is to make this app as user-friendly and informative as possible, and we'd love your help in achieving this goal.
+
+## Screenshots
+
+<p float="left">
+  <img src="https://raw.githubusercontent.com/davidlin2k/The-Neural-Network/main/Simulator%20Screen%20Shot%20-%20iPhone%2013%20Pro%20Max%20-%202023-02-12%20at%2023.34.33.png" width=20% height=20%>
+  <img src="https://raw.githubusercontent.com/davidlin2k/The-Neural-Network/main/Simulator%20Screen%20Shot%20-%20iPhone%2013%20Pro%20Max%20-%202023-02-12%20at%2023.35.24.png" width=20% height=20%>
+</p>
