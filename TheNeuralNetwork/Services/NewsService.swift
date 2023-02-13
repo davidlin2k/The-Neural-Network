@@ -38,11 +38,11 @@ struct Source: Decodable {
 }
 
 protocol NewsService {
-    func fetchHeadlines(country: String) -> AnyPublisher<[Article], Error>
+    func fetchHeadlines(country: String, category: String?) -> AnyPublisher<[Article], Error>
 }
 
 class NewsAPIService: NewsService {
-    func fetchHeadlines(country: String) -> AnyPublisher<[Article], Error> {
+    func fetchHeadlines(country: String, category: String?) -> AnyPublisher<[Article], Error> {
         var apiKey = ""
         
         if let path = Bundle.main.path(forResource: "Property List", ofType: "plist"),
@@ -53,7 +53,7 @@ class NewsAPIService: NewsService {
         return Deferred {
             Future<[Article], Error> { promise in
                 // Create URL
-                let url = URL(string: "https://newsapi.org/v2/top-headlines?country=\(country)&apiKey=\(apiKey)&pageSize=10")
+                let url = URL(string: "https://newsapi.org/v2/top-headlines?country=\(country)&category=\(category ?? "")&apiKey=\(apiKey)&pageSize=10")
                 guard let requestUrl = url else { fatalError() }
                 
                 // Create URL Request
@@ -80,6 +80,11 @@ class NewsAPIService: NewsService {
                             
                             let decoder = JSONDecoder()
                             let newsResponse = try decoder.decode(NewsResponse.self, from: data)
+                            
+                            
+                            newsResponse.articles.forEach { article in 
+                                
+                            }
                             
                             promise(.success(newsResponse.articles))
                         } catch {

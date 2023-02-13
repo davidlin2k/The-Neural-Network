@@ -30,6 +30,7 @@
 		6372CCA52993422A009A884B /* GPTService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCA42993422A009A884B /* GPTService.swift */; };
 		6372CCAB29934F8C009A884B /* Property List.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6372CCAA29934F8C009A884B /* Property List.plist */; };
 		6372CCAD2993F75A009A884B /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6372CCAC2993F75A009A884B /* NewsService.swift */; };
+		63D2AC8329999786009BC3B3 /* NewsCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D2AC8229999786009BC3B3 /* NewsCategoryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		6372CCA42993422A009A884B /* GPTService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTService.swift; sourceTree = "<group>"; };
 		6372CCAA29934F8C009A884B /* Property List.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Property List.plist"; sourceTree = "<group>"; };
 		6372CCAC2993F75A009A884B /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		63D2AC8229999786009BC3B3 /* NewsCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCategoryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				63163DED2997EE07004957D9 /* WebView.swift */,
 				63163DE929975198004957D9 /* SlideOverCard.swift */,
 				63163DE7299704B1004957D9 /* NewsRow.swift */,
+				63D2AC8229999786009BC3B3 /* NewsCategoryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -351,6 +354,7 @@
 				63163DE22996DAA1004957D9 /* News.swift in Sources */,
 				63163DF229983C33004957D9 /* CachedAsyncImage.swift in Sources */,
 				63163DF7299855EE004957D9 /* LaunchScreenStateManager.swift in Sources */,
+				63D2AC8329999786009BC3B3 /* NewsCategoryView.swift in Sources */,
 				63163DE629970346004957D9 /* NewsView.swift in Sources */,
 				63163DFB29985682004957D9 /* LaunchScreenView.swift in Sources */,
 				63163DE029968E55004957D9 /* NewsModel.swift in Sources */,

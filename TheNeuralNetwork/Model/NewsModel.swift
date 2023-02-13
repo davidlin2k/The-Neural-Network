@@ -8,9 +8,10 @@
 import Foundation
 import Combine
 
+// Aggregate Root
 @MainActor
 class NewsModel: ObservableObject {
-    // States
+    // Data
     @Published var summarizedNews: String
     @Published var loadingSummarizedNews: Bool
     @Published var articles: [Article]
@@ -50,17 +51,17 @@ class NewsModel: ObservableObject {
         self.articles = []
         
         if loadNews {
-            self.loadHeadlines(country: self.selection.rawValue)
+            self.loadHeadlines()
         }
     }
     
-    func loadHeadlines(country: String) {
+    func loadHeadlines(category: String? = nil) {
         URLCache.imageCache.removeAllCachedResponses()
         
         self.loadingSummarizedNews = true
         self.summarizedNews = ""
         
-        subscription = newsService.fetchHeadlines(country: country)
+        subscription = newsService.fetchHeadlines(country: self.selection.rawValue, category: category)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { completion in
                 self.subscription?.cancel()

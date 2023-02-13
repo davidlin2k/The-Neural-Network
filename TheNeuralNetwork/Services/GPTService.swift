@@ -8,7 +8,7 @@
 import Combine
 import Foundation
 
-struct GPTResponse: Decodable {
+struct GPTResponse: Codable {
     let id: String
     let object: String
     let created: Int
@@ -16,13 +16,13 @@ struct GPTResponse: Decodable {
     let choices: [Choice]
     let usage: Usage
     
-    struct Choice: Decodable {
+    struct Choice: Codable {
         let text: String
         let index: Int
         let finish_reason: String
     }
     
-    struct Usage: Decodable {
+    struct Usage: Codable {
         let prompt_tokens: Int
         let completion_tokens: Int
         let total_tokens: Int
