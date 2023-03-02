@@ -8,26 +8,31 @@
 import Combine
 import Foundation
 
-struct GPTResponse: Codable {
+struct GPTResponse: Decodable {
     let id: String
     let object: String
     let created: Int
-    let model: String
     let choices: [Choice]
     let usage: Usage
     
-    struct Choice: Codable {
-        let text: String
+    struct Choice: Decodable {
         let index: Int
+        let message: Message
         let finish_reason: String
     }
-    
-    struct Usage: Codable {
+
+    struct Message: Decodable {
+        let role: String
+        let content: String
+    }
+
+    struct Usage: Decodable {
         let prompt_tokens: Int
         let completion_tokens: Int
         let total_tokens: Int
     }
 }
+
 
 protocol GPTService {
     func summarize(prompt: String) -> AnyPublisher<String, Error>
@@ -48,12 +53,11 @@ struct RealGPT3Service: GPTService {
           "Authorization": "Bearer \(apiKey)"
         ]
         let parameters = [
-          "model": "text-davinci-003",
-          "prompt": prompt,
-          "max_tokens": 512,
-          "top_p": 1,
-          "frequency_penalty": 0,
-          "presence_penalty": 0
+          "model": "gpt-3.5-turbo",
+          "messages": [
+            ["role": "system", "content": "You are a news reporter that summarizes news into concise paragraphs. Do not do introduce yourself."],
+            ["role": "user", "content": prompt]
+          ],
         ] as [String : Any]
         
 
@@ -62,7 +66,7 @@ struct RealGPT3Service: GPTService {
                 do {
                     let postData = try JSONSerialization.data(withJSONObject: parameters, options: [])
                     
-                    let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/completions")! as URL,
+                    let request = NSMutableURLRequest(url: NSURL(string: "https://api.openai.com/v1/chat/completions")! as URL,
                                                       cachePolicy: .useProtocolCachePolicy,
                                                       timeoutInterval: 30.0)
                     request.httpMethod = "POST"
@@ -83,7 +87,7 @@ struct RealGPT3Service: GPTService {
                                 let decoder = JSONDecoder()
                                 let response = try decoder.decode(GPTResponse.self, from: data)
                                 
-                                let generatedText = response.choices[0].text
+                                let generatedText = response.choices[0].message.content
                                 
                                 promise(.success(generatedText))
                             } catch {
